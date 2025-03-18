@@ -1,0 +1,33 @@
+{
+    "name": "Foo",
+    "grid": [
+      [
+        {
+          "type": "HISTOGRAM",
+          "name": "foo",
+          "abscissa": { "name": "x", "scaleType": "DEFAULT" },
+          "ordinate": { "name": "y", "scaleType": "DEFAULT" }
+        },
+        {
+          "type": "LINE_CHART",
+          "name": "bar",
+          "abscissa": { "name": "x", "scaleType": "DEFAULT" },
+          "ordinate": { "name": "y", "scaleType": "LOGARITHM" }
+        }
+      ],
+      [
+        {
+          "type": "HISTOGRAM",
+          "name": "foo",
+          "abscissa": { "name": "x", "scaleType": "DEFAULT" },
+          "ordinate": { "name": "y", "scaleType": "DEFAULT" }
+        },
+        {
+          "type": "LINE_CHART",
+          "name": "bar",
+          "abscissa": { "name": "x", "scaleType": "DEFAULT" },
+          "ordinate": { "name": "y", "scaleType": "LOGARITHM" }
+        }
+      ]
+    ]
+  }
