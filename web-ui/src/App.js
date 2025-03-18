@@ -1,8 +1,52 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Container, Row, Col } from 'react-bootstrap';
+import { Navbar, Container} from 'react-bootstrap';
 import {Stack} from 'react-bootstrap-icons';
+import Dashboard from './components/Dashboard';
 
 function App() {
+  let config = {
+    "name": "Foo",
+    "grid": [
+      [
+        {
+          "type": "HISTOGRAM",
+          "name": "foo",
+          "abscissa": {
+            "name": "x",
+            "scaleType": "DEFAULT"
+          },
+          "ordinate": {
+            "name": "y",
+            "scaleType": "DEFAULT"
+          }
+        },
+        {
+          "type": "HISTOGRAM",
+          "name": "foo",
+          "abscissa": {
+            "name": "x",
+            "scaleType": "DEFAULT"
+          },
+          "ordinate": {
+            "name": "y",
+            "scaleType": "DEFAULT"
+          }
+        },
+        {
+          "type": "LINE_CHART",
+          "name": "bar",
+          "abscissa": {
+            "name": "x",
+            "scaleType": "DEFAULT"
+          },
+          "ordinate": {
+            "name": "y",
+            "scaleType": "DEFAULT"
+          }
+        }
+      ]
+    ]
+  }
   return (
     <div className="App">
       {/* Bootstrap Navbar */}
@@ -13,20 +57,7 @@ function App() {
       </Navbar>
 
 
-      {/* Bootstrap Grid with Placeholders */}
-      <Container className="my-4">
-        <Row>
-          <Col md={4}>
-            <div className="placeholder" style={{ height: '200px', backgroundColor: '#e9ecef' }}>Placeholder 1</div>
-          </Col>
-          <Col md={4}>
-            <div className="placeholder" style={{ height: '200px', backgroundColor: '#e9ecef' }}>Placeholder 2</div>
-          </Col>
-          <Col md={4}>
-            <div className="placeholder" style={{ height: '200px', backgroundColor: '#e9ecef' }}>Placeholder 3</div>
-          </Col>
-        </Row>
-      </Container>
+      <Dashboard config={config}/>
 
       {/* Bootstrap Footer */}
       <footer className="bg-light text-center text-lg-start mt-auto">
