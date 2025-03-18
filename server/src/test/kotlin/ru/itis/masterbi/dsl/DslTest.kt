@@ -1,5 +1,7 @@
 package ru.itis.masterbi.dsl
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.kotest.assertions.print.print
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
@@ -47,5 +49,8 @@ class DslTest {
             abscissa shouldBe x
             ordinate shouldBe y
         }
+        val objectMapper = ObjectMapper()
+        val dashboardJson = objectMapper.writeValueAsString(dashboard)
+        dashboardJson.print()
     }
 }

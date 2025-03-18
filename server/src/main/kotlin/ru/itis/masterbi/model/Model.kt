@@ -5,17 +5,51 @@ data class Dashboard(
     val grid: List<List<Element>>
 )
 
-enum class ElementType{
+enum class ElementType {
     HISTOGRAM,
-    LINE_CHART
+    LINE_CHART,
+    PIE_CHART,
+    DONUT_CHART
 }
 
-interface Element{
+interface Element {
     val type: ElementType
     val name: String
+    val queries: List<Query>
+        get() = listOf()
 }
 
-enum class ScaleType{
+enum class DatasourceType {
+    JDBC,
+    MONGO,
+    CSV
+}
+
+interface Datasource {
+    val type: DatasourceType
+}
+
+interface Collection {
+    val name: String
+    val datasource: Datasource
+}
+
+enum class ValueType {
+    STRING, TIMESTAMP, NUMBER
+}
+
+interface KeyDescription {
+    val name: String
+    val type: ValueType
+}
+
+interface Query {
+    val collection: Collection
+    val key: KeyDescription
+    val value: KeyDescription
+}
+
+enum class ScaleType {
     DEFAULT, LOGARITHM
 }
 
@@ -24,18 +58,9 @@ data class Scale(
     val scaleType: ScaleType = ScaleType.DEFAULT
 )
 
-interface ScaledElement: Element{
+interface ScaledElement : Element {
     val abscissa: Scale
     val ordinate: Scale
 }
 
-abstract class AbstractScaledElement(
-    override val type: ElementType
-): ScaledElement{
-    override lateinit var name: String
-    override lateinit var abscissa: Scale
-    override lateinit var ordinate: Scale
-}
 
-class Histogram: AbstractScaledElement(ElementType.HISTOGRAM)
-class LineChart: AbstractScaledElement(ElementType.LINE_CHART)
