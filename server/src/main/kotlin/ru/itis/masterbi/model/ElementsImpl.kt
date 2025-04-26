@@ -6,6 +6,7 @@ abstract class AbstractScaledElement(
     override lateinit var name: String
     override lateinit var abscissa: Scale
     override lateinit var ordinate: Scale
+    override var queries: MutableList<Query> = mutableListOf()
 }
 
 class Histogram : AbstractScaledElement(ElementType.HISTOGRAM)

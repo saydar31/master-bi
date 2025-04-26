@@ -20,7 +20,7 @@ class CsvFileQueryExecutor : QueryExecutor {
         }
         val format = CSVFormat.DEFAULT
             .builder()
-            .setDelimiter(datasource.separator.first())
+            .setDelimiter(datasource.separator)
             .setNullString(datasource.nullPlacement)
             .setHeader()
             .setSkipHeaderRecord(true)

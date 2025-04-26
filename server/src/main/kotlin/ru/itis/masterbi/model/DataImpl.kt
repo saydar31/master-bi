@@ -5,7 +5,7 @@ class CsvDatasource : Datasource {
 
     lateinit var value: String
     var valueType: DataLocationType = DataLocationType.FILENAME
-    var separator: String = ";"
+    var separator: Char = ';'
     var nullPlacement: String = "<NULL>"
 
     enum class DataLocationType{

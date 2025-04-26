@@ -19,7 +19,7 @@ import ru.itis.masterbi.model.Collection as BICollection
 class CsvFileQueryExecutorTest {
 
     private val testDataSource = CsvDatasource().apply {
-        separator = ","
+        separator = ','
         nullPlacement = "NULL"
         valueType = LITERAL
     }
