@@ -9,7 +9,8 @@ enum class ElementType {
     HISTOGRAM,
     LINE_CHART,
     PIE_CHART,
-    DONUT_CHART
+    DONUT_CHART,
+    TAG_CLOUD
 }
 
 interface Element {
