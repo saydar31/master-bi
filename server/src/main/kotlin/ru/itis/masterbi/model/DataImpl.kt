@@ -3,9 +3,14 @@ package ru.itis.masterbi.model
 class CsvDatasource : Datasource {
     override val type: DatasourceType = DatasourceType.CSV
 
-    lateinit var fileName: String
+    lateinit var value: String
+    var valueType: DataLocationType = DataLocationType.FILENAME
     var separator: String = ";"
     var nullPlacement: String = "<NULL>"
+
+    enum class DataLocationType{
+        FILENAME, URL, LITERAL
+    }
 }
 
 class SimpleCollection : Collection {

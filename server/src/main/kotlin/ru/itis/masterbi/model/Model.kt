@@ -50,12 +50,12 @@ interface Query {
 }
 
 enum class ScaleType {
-    DEFAULT, LOGARITHM
+    LINEAR, LOGARITHM
 }
 
 data class Scale(
     val name: String,
-    val scaleType: ScaleType = ScaleType.DEFAULT
+    val scaleType: ScaleType = ScaleType.LINEAR
 )
 
 interface ScaledElement : Element {
