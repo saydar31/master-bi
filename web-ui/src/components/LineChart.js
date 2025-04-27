@@ -22,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ title, data }) => {
+const LineChart = ({ metadata, data }) => {
   const chartData = {
     labels: data.map((_, index) => index),
     datasets: [
@@ -44,7 +44,7 @@ const LineChart = ({ title, data }) => {
       },
       title: {
         display: true,
-        text: title,
+        text: metadata.name,
       },
     },
     scales: {
@@ -56,7 +56,7 @@ const LineChart = ({ title, data }) => {
 
   return (
     <Card>
-      <Card.Header>{title}</Card.Header>
+      <Card.Header>{metadata.name}</Card.Header>
       <Card.Body>
         <Line data={chartData} options={options} />
       </Card.Body>

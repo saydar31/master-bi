@@ -17,7 +17,7 @@ ChartJS.register(
   Colors
 );
 
-const DonutChart = ({ title, data }) => {
+const DonutChart = ({ metadata, data }) => {
   // Transform query results to Chart.js format
   const chartData = {
     labels: data.map(item => item.key),
@@ -38,7 +38,7 @@ const DonutChart = ({ title, data }) => {
       },
       title: {
         display: true,
-        text: title,
+        text: metadata.name,
         font: {
           size: 16
         }
@@ -65,7 +65,7 @@ const DonutChart = ({ title, data }) => {
 
   return (
     <Card>
-      <Card.Header>{title}</Card.Header>
+      <Card.Header>{metadata.name}</Card.Header>
       <Card.Body style={{ position: 'relative', height: '400px' }}>
         <Doughnut data={chartData} options={options} />
       </Card.Body>

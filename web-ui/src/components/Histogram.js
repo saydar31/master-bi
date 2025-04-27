@@ -20,7 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const Histogram = ({ title, data }) => {
+const Histogram = ({ metadata, data }) => {
   const chartData = {
     labels: data.map(item => item.key),
     datasets: [
@@ -42,7 +42,7 @@ const Histogram = ({ title, data }) => {
       },
       title: {
         display: true,
-        text: title,
+        text: metadata.name,
       },
     },
     scales: {
@@ -54,7 +54,7 @@ const Histogram = ({ title, data }) => {
 
   return (
     <Card>
-      <Card.Header>{title}</Card.Header>
+      <Card.Header>{metadata.name}</Card.Header>
       <Card.Body>
         <Bar data={chartData} options={options} />
       </Card.Body>
