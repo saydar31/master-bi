@@ -126,7 +126,7 @@ object DataBuilders {
 
         fun build(): Query {
             validate()
-            return SimpleQuery(collection, key, value)
+            return SimpleQuery(collection, key, value, visualizationProps)
         }
 
         private fun validate() {
