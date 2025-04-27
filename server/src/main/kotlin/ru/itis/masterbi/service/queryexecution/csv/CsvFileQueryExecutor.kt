@@ -2,16 +2,20 @@ package ru.itis.masterbi.service.queryexecution.csv
 
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
+import org.springframework.stereotype.Component
 import ru.itis.masterbi.model.CsvDatasource
+import ru.itis.masterbi.model.DatasourceType
 import ru.itis.masterbi.model.Query
 import ru.itis.masterbi.service.exception.DatasourceTypeMismatch
 import ru.itis.masterbi.service.queryexecution.QueryExecutor
 import ru.itis.masterbi.service.queryexecution.QueryResult
 import ru.itis.masterbi.service.queryexecution.QueryResultUnit
 import java.io.InputStreamReader
-import java.net.URL
 
+@Component
 class CsvFileQueryExecutor : QueryExecutor {
+
+    override val datasourceType = DatasourceType.CSV
 
     override fun execute(query: Query): QueryResult {
         val datasource = query.collection.datasource

@@ -30,6 +30,7 @@ class SimpleKeyDescription(
 ) : KeyDescription
 
 class SimpleQuery(
+    override val id: String,
     override val collection: Collection,
     override val key: KeyDescription,
     override val value: KeyDescription,

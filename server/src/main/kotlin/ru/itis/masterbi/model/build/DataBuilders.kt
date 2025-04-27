@@ -3,6 +3,7 @@ package ru.itis.masterbi.model.build
 import ru.itis.masterbi.model.*
 import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
 import java.time.LocalDateTime
+import java.util.UUID
 import ru.itis.masterbi.model.Collection as MBICollection
 
 object DataBuilders {
@@ -126,7 +127,8 @@ object DataBuilders {
 
         fun build(): Query {
             validate()
-            return SimpleQuery(collection, key, value, visualizationProps)
+            val id = UUID.randomUUID().toString()
+            return SimpleQuery(id, collection, key, value, visualizationProps)
         }
 
         private fun validate() {

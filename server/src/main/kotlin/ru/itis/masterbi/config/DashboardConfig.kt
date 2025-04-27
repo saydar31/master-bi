@@ -54,7 +54,7 @@ class DashboardConfig {
         return dashboard {
             name = "Bar"
             row {
-                histogram {
+                +histogram {
                     name = "bars"
                     abscissa = x
                     ordinate = y
