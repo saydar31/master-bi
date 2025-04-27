@@ -23,12 +23,12 @@ class DslTest {
         val dashboard = dashboard {
             name = dashboardName
             row {
-                histogram {
+                +histogram {
                     name = "foo"
                     abscissa = x
                     ordinate = y
                 }
-                lineChart {
+                +lineChart {
                     name = "bar"
                     abscissa = x
                     ordinate = y

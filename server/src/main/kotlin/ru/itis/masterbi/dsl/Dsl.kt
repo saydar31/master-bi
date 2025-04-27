@@ -25,16 +25,16 @@ class DashboardBuilder {
 }
 
 class RowBuilder {
-    val row: MutableList<Element> = mutableListOf()
-
-    inline fun <reified T : Element> append(init: T.() -> Unit) {
-        val element = T::class.constructors
-            .find { it.parameters.isEmpty() }
-            ?.call() ?: throw RuntimeException("No empty constructor")
-
-        element.init()
-        row.add(element)
-    }
+    private val row: MutableList<Element> = mutableListOf()
 
     fun build() = row
+
+    infix operator fun RowBuilder.plus(element: Element): RowBuilder {
+        row.add(element)
+        return this
+    }
+
+    operator fun Element.unaryPlus() {
+        row.add(this)
+    }
 }

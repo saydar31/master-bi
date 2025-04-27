@@ -37,7 +37,7 @@ class DonutChart(
     override val type: ElementType = ElementType.DONUT_CHART
 }
 
-class TagCloud (
+class TagCloud(
     override val name: String,
     override val queries: List<Query> = emptyList(),
     val maxFontSize: Int = 42,
