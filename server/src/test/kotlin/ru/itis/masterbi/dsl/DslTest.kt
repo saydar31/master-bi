@@ -5,11 +5,15 @@ import io.kotest.assertions.print.print
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import ru.itis.masterbi.builders.ElementBuilders.histogram
-import ru.itis.masterbi.builders.ElementBuilders.lineChart
-import ru.itis.masterbi.model.Histogram
-import ru.itis.masterbi.model.LineChart
-import ru.itis.masterbi.model.Scale
+import ru.itis.masterbi.model.*
+import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
+import ru.itis.masterbi.model.ValueType.NUMBER
+import ru.itis.masterbi.model.build.DataBuilders.collection
+import ru.itis.masterbi.model.build.DataBuilders.csv
+import ru.itis.masterbi.model.build.DataBuilders.key
+import ru.itis.masterbi.model.build.DataBuilders.query
+import ru.itis.masterbi.model.build.ElementBuilders.histogram
+import ru.itis.masterbi.model.build.ElementBuilders.lineChart
 
 class DslTest {
 
@@ -19,6 +23,28 @@ class DslTest {
         val x = Scale("x")
         val y = Scale("y")
 
+        val keyX = key {
+            name = "x"
+            type = NUMBER
+        }
+
+        val keyY = key {
+            name = "y"
+            type = NUMBER
+        }
+
+        val csvDatasource = csv {
+            value = """
+                x;y
+                1;2
+                3;4
+            """.trimIndent()
+            valueType = LITERAL
+        }
+        val defaultCollection = collection {
+            name = "DEFAULT"
+            datasource = csvDatasource
+        }
 
         val dashboard = dashboard {
             name = dashboardName
@@ -27,11 +53,21 @@ class DslTest {
                     name = "foo"
                     abscissa = x
                     ordinate = y
+                    +query {
+                        key = keyX
+                        value = keyY
+                        collection = defaultCollection
+                    }
                 }
                 +lineChart {
                     name = "bar"
                     abscissa = x
                     ordinate = y
+                    +query {
+                        key = keyX
+                        value = keyY
+                        collection = defaultCollection
+                    }
                 }
 
             }

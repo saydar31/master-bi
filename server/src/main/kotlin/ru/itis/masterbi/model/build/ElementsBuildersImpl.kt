@@ -1,4 +1,4 @@
-package ru.itis.masterbi.builders
+package ru.itis.masterbi.model.build
 
 import ru.itis.masterbi.model.*
 
@@ -15,7 +15,11 @@ object ElementBuilders {
         lateinit var name: String
         lateinit var abscissa: Scale
         lateinit var ordinate: Scale
-        var queries: MutableList<Query> = mutableListOf()
+        private val queries: MutableList<Query> = mutableListOf()
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
 
         fun build(): Histogram {
             validate()
@@ -40,7 +44,11 @@ object ElementBuilders {
         lateinit var name: String
         lateinit var abscissa: Scale
         lateinit var ordinate: Scale
-        var queries: MutableList<Query> = mutableListOf()
+        private val queries: MutableList<Query> = mutableListOf()
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
 
         fun build(): LineChart {
             validate()
@@ -63,7 +71,11 @@ object ElementBuilders {
 
     class PieChartBuilder {
         lateinit var name: String
-        var queries: List<Query> = emptyList()
+        private val queries: MutableList<Query> = mutableListOf()
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
 
         fun build(): PieChart {
             validate()
@@ -84,7 +96,11 @@ object ElementBuilders {
 
     class DonutChartBuilder {
         lateinit var name: String
-        var queries: List<Query> = emptyList()
+        private val queries: MutableList<Query> = mutableListOf()
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
 
         fun build(): DonutChart {
             validate()
@@ -105,10 +121,14 @@ object ElementBuilders {
 
     class TagCloudBuilder {
         lateinit var name: String
-        var queries: List<Query> = emptyList()
+        var queries: MutableList<Query> = mutableListOf()
         var maxFontSize: Int = 42
         var minFontSize: Int = 16
         var colorPalette: List<String> = defaultPalette
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
 
         fun build(): TagCloud {
             validate()
