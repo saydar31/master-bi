@@ -1,30 +1,34 @@
 package ru.itis.masterbi.model
 
-class CsvDatasource : Datasource {
-    override val type: DatasourceType = DatasourceType.CSV
+import ru.itis.masterbi.model.DatasourceType.CSV
 
-    lateinit var value: String
-    var valueType: DataLocationType = DataLocationType.FILENAME
-    var separator: Char = ';'
-    var nullPlacement: String = "<NULL>"
+data class CsvDatasource(
+    val value: String,
+    val valueType: DataLocationType,
+    val separator: Char = ';',
+    val nullPlacement: String = "<NULL>"
+) : Datasource {
 
-    enum class DataLocationType{
+    enum class DataLocationType {
         FILENAME, URL, LITERAL
     }
+
+    override val type: DatasourceType
+        get() = CSV
 }
 
-class SimpleCollection : Collection {
-    override lateinit var datasource: Datasource
-    override lateinit var name: String
-}
+class SimpleCollection(
+    override val name: String,
+    override val datasource: Datasource
+) : Collection
 
-class SimpleKeyDescription : KeyDescription {
-    override lateinit var name: String
-    override lateinit var type: ValueType
-}
+class SimpleKeyDescription(
+    override val name: String,
+    override val type: ValueType
+) : KeyDescription
 
-class SimpleQuery : Query {
-    override lateinit var collection: Collection
-    override lateinit var key: KeyDescription
-    override lateinit var value: KeyDescription
-}
+class SimpleQuery(
+    override val collection: Collection,
+    override val key: KeyDescription,
+    override val value: KeyDescription
+) : Query
