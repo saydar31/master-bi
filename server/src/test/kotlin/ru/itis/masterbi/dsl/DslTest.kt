@@ -5,8 +5,9 @@ import io.kotest.assertions.print.print
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import ru.itis.masterbi.model.*
-import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
+import ru.itis.masterbi.model.Histogram
+import ru.itis.masterbi.model.LineChart
+import ru.itis.masterbi.model.Scale
 import ru.itis.masterbi.model.ValueType.NUMBER
 import ru.itis.masterbi.model.build.DataBuilders.collection
 import ru.itis.masterbi.model.build.DataBuilders.csv
@@ -34,12 +35,13 @@ class DslTest {
         }
 
         val csvDatasource = csv {
-            value = """
+            literal(
+                """
                 x;y
                 1;2
                 3;4
-            """.trimIndent()
-            valueType = LITERAL
+            """
+            )
         }
         val defaultCollection = collection {
             name = "DEFAULT"
@@ -67,6 +69,12 @@ class DslTest {
                         key = keyX
                         value = keyY
                         collection = defaultCollection
+                        visualizationProps {
+                            color = "FF00AA"
+                            forKey(1) {
+                                color = "AABBCC"
+                            }
+                        }
                     }
                 }
 

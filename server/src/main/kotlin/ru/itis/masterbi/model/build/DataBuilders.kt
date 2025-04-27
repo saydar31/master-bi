@@ -1,9 +1,11 @@
 package ru.itis.masterbi.model.build
 
 import ru.itis.masterbi.model.*
+import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
+import java.time.LocalDateTime
 import ru.itis.masterbi.model.Collection as MBICollection
 
-object DataBuilders{
+object DataBuilders {
     // Datasource Builders
     fun csv(init: CsvDatasourceBuilder.() -> Unit): CsvDatasource {
         val builder = CsvDatasourceBuilder()
@@ -16,6 +18,21 @@ object DataBuilders{
         lateinit var valueType: CsvDatasource.DataLocationType
         var separator: Char = ';'
         var nullPlaceholder: String = "<NULL>"
+
+        fun literal(literal: String) {
+            value = literal.trimIndent()
+            valueType = LITERAL
+        }
+
+        fun file(path: String) {
+            value = path
+            valueType = CsvDatasource.DataLocationType.FILENAME
+        }
+
+        fun url(url: String) {
+            value = url
+            valueType = CsvDatasource.DataLocationType.URL
+        }
 
         fun build(): CsvDatasource {
             validate()
@@ -83,6 +100,29 @@ object DataBuilders{
         lateinit var collection: MBICollection
         lateinit var key: KeyDescription
         lateinit var value: KeyDescription
+        var visualizationProps: VisualizationProps = VisualizationProps()
+
+        fun visualizationProps(init: VisualizationProps.() -> Unit) {
+            init(visualizationProps)
+        }
+
+        fun VisualizationProps.forKey(key: String, init: VisualizationProps.() -> Unit) {
+            val props = VisualizationProps()
+            init(props)
+            this.keyProps[key] = props
+        }
+
+        fun VisualizationProps.forKey(key: Int, init: VisualizationProps.() -> Unit) {
+            val props = VisualizationProps()
+            init(props)
+            this.keyProps[key.toString()] = props
+        }
+
+        fun VisualizationProps.forKey(key: LocalDateTime, init: VisualizationProps.() -> Unit) {
+            val props = VisualizationProps()
+            init(props)
+            this.keyProps[key.toString()] = props
+        }
 
         fun build(): Query {
             validate()

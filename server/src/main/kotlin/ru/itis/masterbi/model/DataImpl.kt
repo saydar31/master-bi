@@ -30,5 +30,6 @@ class SimpleKeyDescription(
 class SimpleQuery(
     override val collection: Collection,
     override val key: KeyDescription,
-    override val value: KeyDescription
+    override val value: KeyDescription,
+    val visualizationProps: VisualizationProps = VisualizationProps()
 ) : Query
