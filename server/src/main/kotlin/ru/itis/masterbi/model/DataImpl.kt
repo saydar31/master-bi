@@ -1,5 +1,6 @@
 package ru.itis.masterbi.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import ru.itis.masterbi.model.DatasourceType.CSV
 
 data class CsvDatasource(
@@ -19,6 +20,7 @@ data class CsvDatasource(
 
 class SimpleCollection(
     override val name: String,
+    @get:JsonIgnore
     override val datasource: Datasource
 ) : Collection
 
