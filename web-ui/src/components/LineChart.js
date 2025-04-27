@@ -1,47 +1,64 @@
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
-import { generateDummyData } from '../utils/generateDummyData';
+import React from 'react';
 import { Card } from 'react-bootstrap';
+import { Line } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 
-const LineChart = ({ title }) => {
-  const ref = useRef();
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-  useEffect(() => {
-    const data = generateDummyData('LINE_CHART');
-    const svg = d3.select(ref.current)
-      .attr('width', 500)
-      .attr('height', 300)
-      .style('background', '#f0f0f0')
-      .style('margin-top', '50')
-      .style('overflow', 'visible');
+const LineChart = ({ title, data }) => {
+  const chartData = {
+    labels: data.map((_, index) => index),
+    datasets: [
+      {
+        label: 'Value',
+        data: data.map(item => parseFloat(item.value)),
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        tension: 0.1,
+      },
+    ],
+  };
 
-    const xScale = d3.scaleLinear().domain([0, 50]).range([0, 480]);
-    const yScale = d3.scaleLog().domain([1, 100]).range([300, 0]);
-
-    const xAxis = d3.axisBottom(xScale).ticks(5);
-    const yAxis = d3.axisLeft(yScale).ticks(5);
-
-    svg.append('g').call(xAxis).attr('transform', 'translate(0,300)');
-    svg.append('g').call(yAxis);
-
-    const line = d3.line()
-      .x((d) => xScale(d.x))
-      .y((d) => yScale(d.y))
-      .curve(d3.curveMonotoneX);
-
-    svg.append('path')
-      .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', 'blue')
-      .attr('stroke-width', 2)
-      .attr('d', line);
-  }, []);
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: title,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 
   return (
     <Card>
       <Card.Header>{title}</Card.Header>
       <Card.Body>
-        <svg ref={ref}></svg>
+        <Line data={chartData} options={options} />
       </Card.Body>
     </Card>
   );

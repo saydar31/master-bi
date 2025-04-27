@@ -2,17 +2,41 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Histogram from './Histogram';
 import LineChart from './LineChart';
+import DonutChart from './DonutChart';
+import { fetchDashboardConfig, executeQueries } from '../services/api';
 
-const Dashboard = () => {
+const Dashboard = ({ dashboardName }) => {
   const [config, setConfig] = useState(null);
+  const [queryResults, setQueryResults] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/dashboardConfig.json')
-      .then((response) => response.json())
-      .then((data) => setConfig(data));
-  }, []);
+    const loadDashboard = async () => {
+      try {
+        const dashboardConfig = await fetchDashboardConfig(dashboardName);
+        setConfig(dashboardConfig);
+        
+        // Extract all query IDs from the dashboard
+        const queryIds = dashboardConfig.grid.flatMap(row => 
+          row.flatMap(col => col.queries?.map(q => q.id) || [])
+        );
+        
+        if (queryIds.length > 0) {
+          const results = await executeQueries(queryIds);
+          setQueryResults(results);
+        }
+      } catch (error) {
+        console.error('Error loading dashboard:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  if (!config) return <div>Loading...</div>;
+    loadDashboard();
+  }, [dashboardName]);
+
+  if (loading) return <div>Loading dashboard...</div>;
+  if (!config) return <div>Dashboard not found</div>;
 
   return (
     <Container>
@@ -20,9 +44,28 @@ const Dashboard = () => {
       {config.grid.map((row, rowIndex) => (
         <Row key={rowIndex} className="mb-4">
           {row.map((col, colIndex) => (
-            <Col key={colIndex}>
-              {col.type === 'HISTOGRAM' && <Histogram title={col.name} />}
-              {col.type === 'LINE_CHART' && <LineChart title={col.name} />}
+            <Col key={colIndex} md={12 / row.length}>
+              {col.type === 'HISTOGRAM' && (
+                <Histogram 
+                  title={col.name}
+                  queryId={col.queries?.[0]?.id}
+                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                />
+              )}
+              {col.type === 'LINE_CHART' && (
+                <LineChart 
+                  title={col.name}
+                  queryId={col.queries?.[0]?.id}
+                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                />
+              )}
+              {col.type === 'DONUT_CHART' && (
+                <DonutChart 
+                  title={col.name}
+                  queryId={col.queries?.[0]?.id}
+                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                />
+              )}
             </Col>
           ))}
         </Row>
