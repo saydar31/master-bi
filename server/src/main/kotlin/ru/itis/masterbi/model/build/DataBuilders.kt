@@ -46,6 +46,31 @@ object DataBuilders {
         }
     }
 
+    // Добавляем рядом с csv()
+    fun jdbc(init: JdbcDatasourceBuilder.() -> Unit): JdbcDatasource {
+        val builder = JdbcDatasourceBuilder()
+        builder.init()
+        return builder.build()
+    }
+
+    class JdbcDatasourceBuilder {
+        lateinit var jdbcUrl: String
+        lateinit var username: String
+        lateinit var password: String
+        var driverClassName: String = "org.postgresql.Driver" // значение по умолчанию
+
+        fun build(): JdbcDatasource {
+            validate()
+            return JdbcDatasource(jdbcUrl, username, password, driverClassName)
+        }
+
+        private fun validate() {
+            require(::jdbcUrl.isInitialized) { "JDBC URL must be set" }
+            require(::username.isInitialized) { "Username must be set" }
+            require(::password.isInitialized) { "Password must be set" }
+        }
+    }
+
     // Collection Builder
     fun collection(init: CollectionBuilder.() -> Unit): MBICollection {
         val builder = CollectionBuilder()

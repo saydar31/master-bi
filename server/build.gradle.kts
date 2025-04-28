@@ -24,6 +24,12 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	// https://mvnrepository.com/artifact/org.apache.commons/commons-csv
 	implementation("org.apache.commons:commons-csv:1.14.0")
+	// JDBC
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.postgresql:postgresql") // или драйвер для вашей БД
+
+	// Для пула соединений (опционально):
+	implementation("com.zaxxer:HikariCP")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

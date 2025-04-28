@@ -18,6 +18,16 @@ data class CsvDatasource(
         get() = CSV
 }
 
+data class JdbcDatasource(
+    val jdbcUrl: String,
+    val username: String,
+    val password: String,
+    val driverClassName: String
+) : Datasource {
+    override val type: DatasourceType
+        get() = DatasourceType.JDBC
+}
+
 class SimpleCollection(
     override val name: String,
     @get:JsonIgnore
