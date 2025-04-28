@@ -21,17 +21,22 @@ ChartJS.register(
 );
 
 const Histogram = ({ metadata, data }) => {
+  const queryIds = metadata.queries.map(q => q.id)
+  const labels = queryIds.flatMap(e => data[e].data)
+    .map(e => e.key)
+
   const chartData = {
-    labels: data.map(item => item.key),
-    datasets: [
-      {
-        label: 'Value',
-        data: data.map(item => parseFloat(item.value)),
+    labels:labels,
+    datasets: metadata.queries.map(item => {
+      const queryData = data[item.id].data || []
+      return {
+        label: item.label || 'Value',
+        data: queryData.map(e => parseFloat(e.value)),
         backgroundColor: 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
-      },
-    ],
+      }
+    })
   };
 
   const options = {

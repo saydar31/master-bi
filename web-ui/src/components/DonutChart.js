@@ -18,12 +18,13 @@ ChartJS.register(
 );
 
 const DonutChart = ({ metadata, data }) => {
-  // Transform query results to Chart.js format
+  const query = metadata.queries[0]
+  const queryData = data[query.id].data
   const chartData = {
-    labels: data.map(item => item.key),
+    labels: queryData.map(item => item.key),
     datasets: [
       {
-        data: data.map(item => parseFloat(item.value)),
+        data: queryData.map(item => parseFloat(item.value)),
         borderWidth: 1,
         cutout: '70%', // Makes it a donut instead of pie
       }

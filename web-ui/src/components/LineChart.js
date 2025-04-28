@@ -23,17 +23,21 @@ ChartJS.register(
 );
 
 const LineChart = ({ metadata, data }) => {
+  const queryIds = metadata.queries.map(q => q.id)
+  const labels = queryIds.flatMap(e => data[e].data)
+    .map(e => e.key)
   const chartData = {
-    labels: data.map((_, index) => index),
-    datasets: [
-      {
-        label: 'Value',
-        data: data.map(item => parseFloat(item.value)),
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-        tension: 0.1,
-      },
-    ],
+    labels: labels,
+    datasets: metadata.queries.map(item => {
+      const queryData = data[item.id].data || []
+      return {
+        label: item.label || 'Value',
+        data: queryData.map(e => parseFloat(e.value)),
+        backgroundColor: item.visualizationProps.color || 'rgba(75, 192, 192, 0.5)',
+        borderColor: item.visualizationProps.color || 'rgba(75, 192, 192, 1)',
+        tension: 0.1
+      }
+    }),
   };
 
   const options = {

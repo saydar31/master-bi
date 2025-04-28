@@ -48,22 +48,19 @@ const Dashboard = ({ dashboardName }) => {
               {col.type === 'HISTOGRAM' && (
                 <Histogram 
                   metadata={col}
-                  queryId={col.queries?.[0]?.id}
-                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                  data={queryResults}
                 />
               )}
               {col.type === 'LINE_CHART' && (
                 <LineChart 
                   metadata={col}
-                  queryId={col.queries?.[0]?.id}
-                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                  data={queryResults}
                 />
               )}
               {col.type === 'DONUT_CHART' && (
                 <DonutChart 
                   metadata={col}
-                  queryId={col.queries?.[0]?.id}
-                  data={queryResults[col.queries?.[0]?.id]?.data || []}
+                  data={queryResults}
                 />
               )}
             </Col>
