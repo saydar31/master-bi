@@ -98,6 +98,7 @@ object DataBuilders {
     }
 
     class QueryBuilder {
+        var label: String? = null
         lateinit var collection: MBICollection
         lateinit var key: KeyDescription
         lateinit var value: KeyDescription
@@ -128,7 +129,7 @@ object DataBuilders {
         fun build(): Query {
             validate()
             val id = UUID.randomUUID().toString()
-            return SimpleQuery(id, collection, key, value, visualizationProps)
+            return SimpleQuery(id, label, collection, key, value, visualizationProps)
         }
 
         private fun validate() {

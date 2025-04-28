@@ -25,6 +25,7 @@ class CsvFileQueryExecutorTest {
     private val validQuery = object : Query {
         override val id: String
             get() = "id"
+        override val label: String? = null
         override val collection = testCollection
         override val key = object : KeyDescription {
             override val name = "id"

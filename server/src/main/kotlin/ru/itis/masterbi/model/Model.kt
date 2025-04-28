@@ -46,6 +46,7 @@ interface KeyDescription {
 
 interface Query {
     val id: String
+    val label: String?
     val collection: Collection
     val key: KeyDescription
     val value: KeyDescription

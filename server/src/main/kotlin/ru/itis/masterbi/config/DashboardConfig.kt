@@ -65,6 +65,7 @@ class DashboardConfig {
                     +query {
                         collection = collection {
                             name = "sales_by_day"
+                            label = "Продано в день"
                             datasource = csv {
                                 literal(
                                     """
@@ -103,6 +104,7 @@ class DashboardConfig {
                     +query {
                         collection = collection {
                             name = "call_metrics"
+                            label = "Успешных звонков, %"
                             datasource = csv {
                                 literal("""
                                     hour,success_percent

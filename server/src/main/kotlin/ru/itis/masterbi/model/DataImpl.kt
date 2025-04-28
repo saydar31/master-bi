@@ -31,6 +31,7 @@ class SimpleKeyDescription(
 
 class SimpleQuery(
     override val id: String,
+    override val label: String?,
     override val collection: Collection,
     override val key: KeyDescription,
     override val value: KeyDescription,
