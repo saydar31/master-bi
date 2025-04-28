@@ -6,6 +6,9 @@ import ru.itis.masterbi.dsl.dashboard
 import ru.itis.masterbi.model.*
 import ru.itis.masterbi.model.ScaleType.LINEAR
 import ru.itis.masterbi.model.ValueType.NUMBER
+import ru.itis.masterbi.model.VisualizationProps.LineType.DOTTED
+import ru.itis.masterbi.model.VisualizationProps.MarkerShape.CIRCLE
+import ru.itis.masterbi.model.VisualizationProps.MarkerShape.TRIANGLE
 import ru.itis.masterbi.model.build.DataBuilders.collection
 import ru.itis.masterbi.model.build.DataBuilders.csv
 import ru.itis.masterbi.model.build.DataBuilders.key
@@ -91,7 +94,11 @@ class DashboardConfig {
                             type = NUMBER
                         }
                         visualizationProps {
-                            color = "#4CAF50"
+                            color {
+                                red = 76
+                                green = 175
+                                blue = 80
+                            }
                         }
                     }
                 }
@@ -106,7 +113,8 @@ class DashboardConfig {
                             name = "call_metrics"
                             label = "Успешных звонков, %"
                             datasource = csv {
-                                literal("""
+                                literal(
+                                    """
                                     hour,success_percent
                                     9,62.5
                                     10,68.3
@@ -117,7 +125,8 @@ class DashboardConfig {
                                     15,75.4
                                     16,72.9
                                     17,68.7
-                                """.trimIndent())
+                                """.trimIndent()
+                                )
                                 separator = ','
                             }
                         }
@@ -131,7 +140,8 @@ class DashboardConfig {
                         }
                         visualizationProps {
                             color = "#2196F3"
-                            lineType = VisualizationProps.LineType.DOTTED
+                            shape = TRIANGLE
+                            lineType = DOTTED
                         }
                     }
                 }

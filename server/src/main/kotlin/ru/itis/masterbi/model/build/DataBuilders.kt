@@ -108,6 +108,21 @@ object DataBuilders {
             init(visualizationProps)
         }
 
+        data class Color(
+            var red: Int = 75,
+            var green: Int = 192,
+            var blue: Int = 192,
+            var alpha: Int = 1
+        ) {
+            fun toChartColor() = "rgba($red, $green, $blue, $alpha)"
+        }
+
+        fun VisualizationProps.color(init: Color.() -> Unit) {
+            val color = Color()
+            init(color)
+            this.color = color.toChartColor()
+        }
+
         fun VisualizationProps.forKey(key: String, init: VisualizationProps.() -> Unit) {
             val props = VisualizationProps()
             init(props)
