@@ -30,11 +30,13 @@ const LineChart = ({ metadata, data }) => {
     labels: labels,
     datasets: metadata.queries.map(item => {
       const queryData = data[item.id].data || []
+      console.log(item.visualizationProps)
       return {
         label: item.label || 'Value',
         data: queryData.map(e => parseFloat(e.value)),
         backgroundColor: item.visualizationProps.color || 'rgba(75, 192, 192, 0.5)',
         borderColor: item.visualizationProps.color || 'rgba(75, 192, 192, 1)',
+        pointStyle: item.visualizationProps.shape || 'circle',
         tension: 0.1
       }
     }),
