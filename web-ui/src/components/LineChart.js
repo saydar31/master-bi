@@ -30,7 +30,6 @@ const LineChart = ({ metadata, data }) => {
     labels: labels,
     datasets: metadata.queries.map(item => {
       const queryData = data[item.id].data || []
-      console.log(item.visualizationProps)
       return {
         label: item.label || 'Value',
         data: queryData.map(e => parseFloat(e.value)),
