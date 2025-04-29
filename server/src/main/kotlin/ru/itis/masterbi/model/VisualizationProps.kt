@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue
 
 class VisualizationProps {
     var color: String? = null
-    val backgroundColor: String? = null
+    var backgroundColor: String? = null
     var shape: MarkerShape? = null
     var lineType: LineType? = null
     var font: FontProps? = null

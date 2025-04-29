@@ -1,5 +1,6 @@
 package ru.itis.masterbi.config
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.itis.masterbi.dsl.dashboard
@@ -12,6 +13,7 @@ import ru.itis.masterbi.model.build.ElementBuilders.histogram
 import ru.itis.masterbi.model.linear
 
 @Configuration
+@ConditionalOnProperty("dashboard.mongo")
 class MongoDashboardConfig {
 
     companion object {

@@ -1,10 +1,10 @@
 package ru.itis.masterbi.config
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.itis.masterbi.dsl.dashboard
 import ru.itis.masterbi.model.Dashboard
-import ru.itis.masterbi.model.JdbcDatasource
 import ru.itis.masterbi.model.JdbcDatasource.DataBase.POSTGRESQL
 import ru.itis.masterbi.model.Scale
 import ru.itis.masterbi.model.ValueType
@@ -15,6 +15,7 @@ import ru.itis.masterbi.model.build.DataBuilders.query
 import ru.itis.masterbi.model.build.ElementBuilders.histogram
 
 @Configuration
+@ConditionalOnProperty("dashboard.sql")
 class SqlDashboardConfig {
     @Bean
     fun sqlDashboard(): Dashboard {

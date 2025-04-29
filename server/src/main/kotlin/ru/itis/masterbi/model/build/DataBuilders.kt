@@ -201,6 +201,12 @@ object DataBuilders {
             this.color = color.toChartColor()
         }
 
+        fun VisualizationProps.backgroundColor(init: Color.() -> Unit) {
+            val color = Color()
+            init(color)
+            this.backgroundColor = color.toChartColor()
+        }
+
         fun VisualizationProps.forKey(key: String, init: VisualizationProps.() -> Unit) {
             val props = VisualizationProps()
             init(props)
