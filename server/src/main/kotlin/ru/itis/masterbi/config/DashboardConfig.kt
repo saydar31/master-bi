@@ -106,7 +106,7 @@ class DashboardConfig {
                 +lineChart {
                     name = "Successful Calls Percentage"
                     abscissa = Scale("hour")
-                    ordinate = Scale("success_percent", LINEAR)
+                    ordinate = Scale("success_percent")
 
                     +query {
                         collection = collection {

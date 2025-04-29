@@ -12,7 +12,6 @@ import ru.itis.masterbi.model.build.DataBuilders.key
 import ru.itis.masterbi.model.build.DataBuilders.query
 import ru.itis.masterbi.model.build.ElementBuilders.lineChart
 import ru.itis.masterbi.model.linear
-import kotlin.math.sqrt
 
 @Configuration
 class TwoLinesConfig {
@@ -63,8 +62,8 @@ class TwoLinesConfig {
         row {
             +lineChart {
                 name = "Square root"
-                abscissa = linear("x")
-                ordinate = linear("y")
+                abscissa = linear("x", displayName = "foo")
+                ordinate = linear("y", displayName = "bar")
                 +query {
                     label = "sqrt"
                     collection = collection {

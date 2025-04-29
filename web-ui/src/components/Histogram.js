@@ -54,10 +54,20 @@ const Histogram = ({ metadata, data }) => {
       },
     },
     scales: {
-      y: {
-        beginAtZero: true,
+      x: {
+        title: metadata.abscissa.displayName ? {
+          display: true,
+          text: metadata.abscissa.displayName
+        } : undefined,
       },
-    },
+      y: {
+        title: metadata.ordinate.displayName ? {
+          display: true,
+          text: metadata.ordinate.displayName
+        } : undefined,
+        beginAtZero: true
+      }
+    }
   };
 
   return (

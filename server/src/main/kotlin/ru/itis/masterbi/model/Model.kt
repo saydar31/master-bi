@@ -58,11 +58,12 @@ enum class ScaleType {
 
 data class Scale(
     val name: String,
+    val displayName: String? = null,
     val scaleType: ScaleType = ScaleType.LINEAR
 )
 
-fun linear(name: String) = Scale(name, ScaleType.LINEAR)
-fun logarithm(name: String) = Scale(name, ScaleType.LOGARITHM)
+fun linear(name: String, displayName: String? = null) = Scale(name, displayName = displayName)
+fun logarithm(name: String, displayName: String? = null) = Scale(name, scaleType = ScaleType.LOGARITHM, displayName = displayName)
 
 interface ScaledElement : Element {
     val abscissa: Scale
