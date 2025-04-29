@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse_db
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: mysecretpassword
+      CLICKHOUSE_DB: myapp
+    ports:
+      - "8123:8123"  # HTTP interface
+      - "9000:9000"  # Native TCP interface
+    volumes:
+      - ./init_clickhouse.sql:/docker-entrypoint-initdb.d/init_clickhouse.sql
+      - clickhouse_data:/var/lib/clickhouse
+    networks:
+      - app-network
+
+  ch-ui:
+    image: ghcr.io/caioricciuti/ch-ui:latest
+    container_name: clickhouse_ui
+    environment:
+      VITE_CLICKHOUSE_URL: "http://localhost:8123"
+      VITE_CLICKHOUSE_USER: "default"
+      VITE_CLICKHOUSE_PASS: "mysecretpassword"
+    ports:
+      - "5521:5521"
+    depends_on:
+      - clickhouse
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  clickhouse_data:
