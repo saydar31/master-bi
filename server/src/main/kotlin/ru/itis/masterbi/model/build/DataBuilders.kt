@@ -57,14 +57,15 @@ object DataBuilders {
         lateinit var jdbcUrl: String
         lateinit var username: String
         lateinit var password: String
-        var driverClassName: String = "org.postgresql.Driver" // значение по умолчанию
+        lateinit var database: JdbcDatasource.DataBase // значение по умолчанию
 
         fun build(): JdbcDatasource {
             validate()
-            return JdbcDatasource(jdbcUrl, username, password, driverClassName)
+            return JdbcDatasource(jdbcUrl, username, password, database)
         }
 
         private fun validate() {
+            require(::database.isInitialized) { "Database must be set" }
             require(::jdbcUrl.isInitialized) { "JDBC URL must be set" }
             require(::username.isInitialized) { "Username must be set" }
             require(::password.isInitialized) { "Password must be set" }

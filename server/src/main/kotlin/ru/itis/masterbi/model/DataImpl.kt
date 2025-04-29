@@ -22,10 +22,22 @@ data class JdbcDatasource(
     val jdbcUrl: String,
     val username: String,
     val password: String,
-    val driverClassName: String
+    val dataBase: DataBase
 ) : Datasource {
     override val type: DatasourceType
         get() = DatasourceType.JDBC
+
+    enum class DataBase(val driverClassName: String){
+        POSTGRESQL("org.postgresql.Driver"),
+        MYSQL("com.mysql.cj.jdbc.Driver"),
+        MARIADB("org.mariadb.jdbc.Driver"),
+        SQLSERVER("com.microsoft.sqlserver.jdbc.SQLServerDriver"),
+        H2("org.h2.Driver"),
+        SQLITE("org.sqlite.JDBC"),
+        ORACLE("oracle.jdbc.OracleDriver"),
+        CLICKHOUSE("com.clickhouse.jdbc.ClickHouseDriver")
+    }
+
 }
 
 class SimpleCollection(

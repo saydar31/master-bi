@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.itis.masterbi.dsl.dashboard
 import ru.itis.masterbi.model.Dashboard
+import ru.itis.masterbi.model.JdbcDatasource
+import ru.itis.masterbi.model.JdbcDatasource.DataBase.POSTGRESQL
 import ru.itis.masterbi.model.Scale
 import ru.itis.masterbi.model.ValueType
 import ru.itis.masterbi.model.build.DataBuilders.collection
@@ -32,7 +34,7 @@ class SqlDashboardConfig {
                                 jdbcUrl = "jdbc:postgresql://localhost:5432/myapp"
                                 username = "postgres"
                                 password = "mysecretpassword"
-                                driverClassName = "org.postgresql.Driver"
+                                database = POSTGRESQL
                             }
                         }
                         key = key {

@@ -42,7 +42,7 @@ class JdbcQueryExecutor : QueryExecutor {
 
     private fun createDataSource(datasource: JdbcDatasource): DataSource {
         return DriverManagerDataSource().apply {
-            setDriverClassName(datasource.driverClassName)
+            setDriverClassName(datasource.dataBase.driverClassName)
             url = datasource.jdbcUrl
             username = datasource.username
             password = datasource.password
