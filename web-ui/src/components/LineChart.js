@@ -39,7 +39,7 @@ const LineChart = ({ metadata, data }) => {
       const borderDash = nameToDash[item.visualizationProps.lineType] || []
       return {
         label: item.label || 'Value',
-        data: queryData.map(e => parseFloat(e.value)),
+        data: queryData.map(e => ({x: e.key,  y: parseFloat(e.value)})),
         backgroundColor: item.visualizationProps.backgroundColor || 'rgba(75, 192, 192, 0.5)',
         borderColor: item.visualizationProps.color || 'rgba(75, 192, 192, 1)',
         pointStyle: item.visualizationProps.shape || 'circle',

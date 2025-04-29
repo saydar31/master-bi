@@ -26,13 +26,13 @@ const Histogram = ({ metadata, data }) => {
     .map(e => e.key)
 
   const chartData = {
-    labels:labels,
+    labels: labels,
     datasets: metadata.queries.map(item => {
       const queryData = data[item.id].data || []
       return {
         label: item.label || 'Value',
-        data: queryData.map(e => parseFloat(e.value)),
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        data: queryData.map(e => ({x: e.key,  y: parseFloat(e.value)})),
+        backgroundColor: item.visualizationProps.backgroundColor || 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       }
