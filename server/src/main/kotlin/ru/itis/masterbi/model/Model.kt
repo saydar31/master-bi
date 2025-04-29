@@ -61,6 +61,9 @@ data class Scale(
     val scaleType: ScaleType = ScaleType.LINEAR
 )
 
+fun linear(name: String) = Scale(name, ScaleType.LINEAR)
+fun logarithm(name: String) = Scale(name, ScaleType.LOGARITHM)
+
 interface ScaledElement : Element {
     val abscissa: Scale
     val ordinate: Scale

@@ -1,0 +1,18 @@
+[
+  {
+    "dow": "SUN",
+    "count": 10
+  },
+  {
+    "dow": "MON",
+    "count": 20
+  },
+  {
+    "dow": "TUE",
+    "count": 15
+  },
+  {
+    "dow": "WED",
+    "count": 14
+  }
+]

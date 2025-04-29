@@ -72,6 +72,58 @@ object DataBuilders {
         }
     }
 
+    // mongo
+    fun mongo(init: MongoDatasourceBuilder.() -> Unit): MongoDatasource {
+        val builder = MongoDatasourceBuilder()
+        builder.init()
+        return builder.build()
+    }
+
+    class MongoDatasourceBuilder {
+        var host: String = "localhost"
+        var port: Int = 27017
+        var database: String = ""
+        var username: String? = null
+        var password: String? = null
+        var authSource: String? = "admin"
+        var authMechanism: String? = null
+        var directConnection: Boolean = true
+
+        fun host(host: String) = apply { this.host = host }
+        fun port(port: Int) = apply { this.port = port }
+        fun database(database: String) = apply { this.database = database }
+        fun credentials(username: String, password: String) = apply {
+            this.username = username
+            this.password = password
+        }
+
+        fun authSource(source: String) = apply { this.authSource = source }
+        fun authMechanism(mechanism: String) = apply { this.authMechanism = mechanism }
+        fun directConnection(enable: Boolean) = apply { this.directConnection = enable }
+
+        fun build(): MongoDatasource {
+            validate()
+            return MongoDatasource(
+                host = host,
+                port = port,
+                database = database,
+                username = username,
+                password = password,
+                authSource = authSource,
+                authMechanism = authMechanism,
+                directConnection = directConnection
+            )
+        }
+
+        private fun validate() {
+            require(database.isNotBlank()) { "Database name must be specified" }
+            require(port in 1..65535) { "Port must be between 1 and 65535" }
+            if (authMechanism != null) {
+                require(username != null) { "Username must be specified when authMechanism is set" }
+            }
+        }
+    }
+
     // Collection Builder
     fun collection(init: CollectionBuilder.() -> Unit): MBICollection {
         val builder = CollectionBuilder()

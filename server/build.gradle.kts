@@ -27,6 +27,8 @@ dependencies {
 	// JDBC
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.postgresql:postgresql") // или драйвер для вашей БД
+	// MONGO
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
 	// Для пула соединений (опционально):
 	implementation("com.zaxxer:HikariCP")
