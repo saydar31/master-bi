@@ -22,8 +22,11 @@ ChartJS.register(
 
 const Histogram = ({ metadata, data }) => {
   const queryIds = metadata.queries.map(q => q.id)
-  const labels = queryIds.flatMap(e => data[e].data)
-    .map(e => e.key)
+  const labels = [...new Set(
+    queryIds.flatMap(e => 
+      data[e]?.data?.map(item => item.key) || []
+    )
+  )];
 
   const chartData = {
     labels: labels,
