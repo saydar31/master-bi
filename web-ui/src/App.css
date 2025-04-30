@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.tag-cloud-tooltip {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.tag-cloud-tooltip strong {
+  display: block;
+  margin-bottom: 4px;
+}
