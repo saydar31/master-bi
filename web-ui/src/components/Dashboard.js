@@ -4,6 +4,7 @@ import Histogram from './Histogram';
 import LineChart from './LineChart';
 import DonutChart from './DonutChart';
 import { fetchDashboardConfig, executeQueries } from '../services/api';
+import TagCloudWiget from './TagCloudWiget';
 
 const Dashboard = ({ dashboardName }) => {
   const [config, setConfig] = useState(null);
@@ -59,6 +60,12 @@ const Dashboard = ({ dashboardName }) => {
               )}
               {col.type === 'DONUT_CHART' && (
                 <DonutChart 
+                  metadata={col}
+                  data={queryResults}
+                />
+              )}
+              {col.type === 'TAG_CLOUD' && (
+                <TagCloudWiget 
                   metadata={col}
                   data={queryResults}
                 />
