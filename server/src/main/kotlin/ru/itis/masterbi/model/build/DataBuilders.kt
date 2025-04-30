@@ -186,6 +186,14 @@ object DataBuilders {
             init(visualizationProps)
         }
 
+        infix fun ValueType.key(name: String) {
+            key = SimpleKeyDescription(name, this)
+        }
+
+        infix fun ValueType.value(name: String) {
+            value = SimpleKeyDescription(name, this)
+        }
+
         data class Color(
             var red: Int = 75,
             var green: Int = 192,
