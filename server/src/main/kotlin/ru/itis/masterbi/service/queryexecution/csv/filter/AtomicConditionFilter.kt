@@ -79,8 +79,7 @@ class StringInConditionFilter : AtomicConditionFilter {
     override val functions = listOf(IN)
 
     override fun filter(value: String, condition: AtomicCondition): Boolean {
-        val args = (condition.argument as Iterable<*>)
-            .toSet()
+        val args = condition.argument as Iterable<*>
         return value in args
     }
 }
