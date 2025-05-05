@@ -9,10 +9,14 @@ import ru.itis.masterbi.model.JdbcDatasource.DataBase.POSTGRESQL
 import ru.itis.masterbi.model.Scale
 import ru.itis.masterbi.model.ValueType
 import ru.itis.masterbi.model.build.DataBuilders.collection
+import ru.itis.masterbi.model.build.DataBuilders.filter
 import ru.itis.masterbi.model.build.DataBuilders.jdbc
 import ru.itis.masterbi.model.build.DataBuilders.key
 import ru.itis.masterbi.model.build.DataBuilders.query
 import ru.itis.masterbi.model.build.ElementBuilders.histogram
+import ru.itis.masterbi.model.condition.Condition
+import ru.itis.masterbi.model.condition.builder.eq
+import ru.itis.masterbi.model.condition.builder.or
 
 @Configuration
 @ConditionalOnProperty("dashboard.sql")
@@ -21,6 +25,10 @@ class SqlDashboardConfig {
     fun sqlDashboard(): Dashboard {
         return dashboard {
             name = "SQL_Dashboard"
+            val month = key {
+                name = "month"
+                type = ValueType.STRING
+            }
 
             row {
                 +histogram {
@@ -38,14 +46,16 @@ class SqlDashboardConfig {
                                 database = POSTGRESQL
                             }
                         }
-                        key = key {
-                            name = "month"
-                            type = ValueType.STRING
-                        }
+                        key = month
                         value = key {
                             name = "count"
                             type = ValueType.NUMBER
                         }
+                    }.filter {
+                        or {
+                            +!(month eq "SEPTEMBER")
+                        }
+
                     }
                 }
             }

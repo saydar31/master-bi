@@ -5,15 +5,19 @@ import org.apache.commons.csv.CSVParser
 import org.springframework.stereotype.Component
 import ru.itis.masterbi.model.CsvDatasource
 import ru.itis.masterbi.model.DatasourceType
+import ru.itis.masterbi.model.FilteredQuery
 import ru.itis.masterbi.model.Query
 import ru.itis.masterbi.service.exception.DatasourceTypeMismatch
 import ru.itis.masterbi.service.queryexecution.QueryExecutor
 import ru.itis.masterbi.service.queryexecution.QueryResult
 import ru.itis.masterbi.service.queryexecution.QueryResultUnit
+import ru.itis.masterbi.service.queryexecution.csv.filter.CsvFilterQueryService
 import java.io.InputStreamReader
 
 @Component
-class CsvFileQueryExecutor : QueryExecutor {
+class CsvFileQueryExecutor(
+    val filterService: CsvFilterQueryService
+) : QueryExecutor {
 
     override val datasourceType = DatasourceType.CSV
 
@@ -34,16 +38,26 @@ class CsvFileQueryExecutor : QueryExecutor {
         val resolver = CsvLocationResolverFactory.getResolver(datasource)
         val input = resolver.getInputStream(datasource)
 
+        val filter = when (query) {
+            is FilteredQuery -> filterService.buildFilter(query.condition)
+            else -> {
+                { true }
+            }
+        }
+
         input.use { inputStream ->
             InputStreamReader(inputStream).use { reader ->
                 CSVParser.parse(reader, format).use { parser ->
                     parser.forEach { record ->
-                        results.add(
-                            QueryResultUnit(
-                                key = record.get(query.key.name),
-                                value = record.get(query.value.name)
+                        val value = record.get(query.value.name)
+                        if (filter(record)) {
+                            results.add(
+                                QueryResultUnit(
+                                    key = record.get(query.key.name),
+                                    value = value
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
