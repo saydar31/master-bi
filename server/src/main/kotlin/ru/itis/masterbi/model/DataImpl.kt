@@ -3,6 +3,7 @@ package ru.itis.masterbi.model
 import com.fasterxml.jackson.annotation.JsonIgnore
 import ru.itis.masterbi.model.DatasourceType.CSV
 import ru.itis.masterbi.model.DatasourceType.MONGO
+import ru.itis.masterbi.model.condition.Condition
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -106,3 +107,8 @@ class SimpleQuery(
     override val value: KeyDescription,
     val visualizationProps: VisualizationProps
 ) : Query
+
+class FilteredQueryImpl(
+    query: Query,
+    override val condition: Condition
+) : Query by query, FilteredQuery

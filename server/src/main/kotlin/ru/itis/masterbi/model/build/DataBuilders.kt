@@ -2,6 +2,7 @@ package ru.itis.masterbi.model.build
 
 import ru.itis.masterbi.model.*
 import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
+import ru.itis.masterbi.model.condition.Condition
 import java.time.LocalDateTime
 import java.util.UUID
 import ru.itis.masterbi.model.Collection as MBICollection
@@ -174,6 +175,8 @@ object DataBuilders {
         builder.init()
         return builder.build()
     }
+
+    fun Query.filter(condition: () -> Condition) = FilteredQueryImpl(this, condition())
 
     class QueryBuilder {
         var label: String? = null

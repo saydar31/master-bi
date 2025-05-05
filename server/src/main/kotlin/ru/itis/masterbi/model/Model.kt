@@ -1,5 +1,7 @@
 package ru.itis.masterbi.model
 
+import ru.itis.masterbi.model.condition.Condition
+
 data class Dashboard(
     val name: String,
     val grid: List<List<Element>>
@@ -52,6 +54,10 @@ interface Query {
     val value: KeyDescription
 }
 
+interface FilteredQuery: Query{
+    val condition: Condition
+}
+
 enum class ScaleType {
     LINEAR, LOGARITHM
 }
@@ -63,7 +69,8 @@ data class Scale(
 )
 
 fun linear(name: String, displayName: String? = null) = Scale(name, displayName = displayName)
-fun logarithm(name: String, displayName: String? = null) = Scale(name, scaleType = ScaleType.LOGARITHM, displayName = displayName)
+fun logarithm(name: String, displayName: String? = null) =
+    Scale(name, scaleType = ScaleType.LOGARITHM, displayName = displayName)
 
 interface ScaledElement : Element {
     val abscissa: Scale
