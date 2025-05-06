@@ -141,4 +141,29 @@ object ElementBuilders {
             require(colorPalette.isNotEmpty()) { "Color palette must not be empty" }
         }
     }
+
+    fun activityGraph(init: ActivityGraphBuilder.() -> Unit): ActivityGraph {
+        val builder = ActivityGraphBuilder()
+        builder.init()
+        return builder.build()
+    }
+
+    class ActivityGraphBuilder {
+        lateinit var name: String
+        private val queries: MutableList<Query> = mutableListOf()
+
+        operator fun Query.unaryPlus() {
+            queries.add(this)
+        }
+
+        fun build(): ActivityGraph {
+            validate()
+            return ActivityGraph(name, queries)
+        }
+
+        private fun validate() {
+            require(queries.all { it.key.type == ValueType.TIMESTAMP })
+            require(name.isNotBlank()) { "Name must not be blank" }
+        }
+    }
 }

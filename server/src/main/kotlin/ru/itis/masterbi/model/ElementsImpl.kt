@@ -48,3 +48,10 @@ class TagCloud(
 }
 
 val defaultPalette = listOf("#FF5733", "#33FF57", "#3357FF")
+
+class ActivityGraph(
+    override val name: String,
+    override val queries: List<Query> = emptyList()
+) : Element {
+    override val type: ElementType = ElementType.ACTIVITY_GRAPH
+}

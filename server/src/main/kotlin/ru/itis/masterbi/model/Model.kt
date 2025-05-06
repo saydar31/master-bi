@@ -12,7 +12,8 @@ enum class ElementType {
     LINE_CHART,
     PIE_CHART,
     DONUT_CHART,
-    TAG_CLOUD
+    TAG_CLOUD,
+    ACTIVITY_GRAPH
 }
 
 interface Element {
