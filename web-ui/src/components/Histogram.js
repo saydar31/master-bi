@@ -35,7 +35,7 @@ const Histogram = ({ metadata, data }) => {
       return {
         label: item.label || 'Value',
         data: queryData.map(e => ({x: e.key,  y: parseFloat(e.value)})),
-        backgroundColor: item.visualizationProps.backgroundColor || 'rgba(75, 192, 192, 0.6)',
+        backgroundColor: item.visualizationProps?.backgroundColor || 'rgba(75, 192, 192, 0.6)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
       }
