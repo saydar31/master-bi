@@ -8,6 +8,8 @@ import java.time.DayOfWeek.SUNDAY
 import java.time.Month.MARCH
 import java.time.Month.NOVEMBER
 import java.time.format.DateTimeFormatter
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 object YearApplies {
 
@@ -29,7 +31,8 @@ object YearApplies {
                 if (it.month in peakMonth) {
                     k *= 2.0
                 }
-                val amount = (3 * k).toInt()
+                val base = Random.nextInt(1 .. 3)
+                val amount = (base * k).toInt()
                 val dateIso = dateFormatter.format(it)
                 appendLine("$dateIso;$amount")
             }

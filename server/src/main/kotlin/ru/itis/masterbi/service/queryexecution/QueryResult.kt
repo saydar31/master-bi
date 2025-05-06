@@ -6,5 +6,6 @@ data class QueryResultUnit(
 )
 
 data class QueryResult(
-    val data: List<QueryResultUnit>
+    val data: List<QueryResultUnit>,
+    val transformedData: Any? = null
 )

@@ -4,12 +4,16 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.itis.masterbi.config.TwoLinesConfig.Datasources.DEFAULT_COLLECTION
 import ru.itis.masterbi.config.TwoLinesConfig.Datasources.paraboloid
+import ru.itis.masterbi.config.datasource.YearApplies
 import ru.itis.masterbi.dsl.dashboard
 import ru.itis.masterbi.model.ValueType
+import ru.itis.masterbi.model.ValueType.*
+import ru.itis.masterbi.model.build.DataBuilders
 import ru.itis.masterbi.model.build.DataBuilders.collection
 import ru.itis.masterbi.model.build.DataBuilders.csv
 import ru.itis.masterbi.model.build.DataBuilders.key
 import ru.itis.masterbi.model.build.DataBuilders.query
+import ru.itis.masterbi.model.build.ElementBuilders.activityGraph
 import ru.itis.masterbi.model.build.ElementBuilders.lineChart
 import ru.itis.masterbi.model.linear
 
@@ -47,12 +51,12 @@ class TwoLinesConfig {
     object keys {
         val x = key {
             name = "x"
-            type = ValueType.NUMBER
+            type = NUMBER
         }
 
         val y = key {
             name = "y"
-            type = ValueType.NUMBER
+            type = NUMBER
         }
     }
 
@@ -93,6 +97,25 @@ class TwoLinesConfig {
                         datasource = paraboloid
                         key = keys.x
                         value = keys.y
+                    }
+                }
+            }
+        }
+        row {
+            +activityGraph {
+                name = "foo"
+                +query {
+                    collection = collection {
+                        name = "default"
+                        key = key {
+                            name = "day"
+                            type = TIMESTAMP
+                        }
+                        value = key {
+                            name = "amount"
+                            type = NUMBER
+                        }
+                        datasource = YearApplies.applications
                     }
                 }
             }

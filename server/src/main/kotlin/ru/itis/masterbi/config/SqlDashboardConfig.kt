@@ -53,7 +53,8 @@ class SqlDashboardConfig {
                         }
                     }.filter {
                         or {
-                            +!(month eq "SEPTEMBER")
+                            +(month eq "2023-04")
+                            +(month eq "2023-05")
                         }
 
                     }

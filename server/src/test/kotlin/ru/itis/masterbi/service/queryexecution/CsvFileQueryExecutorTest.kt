@@ -8,6 +8,8 @@ import io.kotest.matchers.shouldBe
 import ru.itis.masterbi.model.*
 import ru.itis.masterbi.model.CsvDatasource.DataLocationType.LITERAL
 import ru.itis.masterbi.service.queryexecution.csv.CsvFileQueryExecutor
+import ru.itis.masterbi.service.queryexecution.csv.filter.CsvFilterQueryService
+import ru.itis.masterbi.service.queryexecution.csv.filter.FilterDispatcher
 import kotlin.test.Test
 import ru.itis.masterbi.model.Collection as BICollection
 
@@ -37,7 +39,9 @@ class CsvFileQueryExecutorTest {
         }
     }
 
-    private val executor = CsvFileQueryExecutor()
+    private val executor = CsvFileQueryExecutor(
+        CsvFilterQueryService(FilterDispatcher(listOf()))
+    )
 
     @Test
     fun `reads CSV with headers`() {

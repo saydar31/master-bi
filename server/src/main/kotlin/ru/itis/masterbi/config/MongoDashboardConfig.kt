@@ -6,10 +6,12 @@ import org.springframework.context.annotation.Configuration
 import ru.itis.masterbi.dsl.dashboard
 import ru.itis.masterbi.model.ValueType
 import ru.itis.masterbi.model.build.DataBuilders.collection
+import ru.itis.masterbi.model.build.DataBuilders.filter
 import ru.itis.masterbi.model.build.DataBuilders.key
 import ru.itis.masterbi.model.build.DataBuilders.mongo
 import ru.itis.masterbi.model.build.DataBuilders.query
 import ru.itis.masterbi.model.build.ElementBuilders.histogram
+import ru.itis.masterbi.model.condition.builder.ge
 import ru.itis.masterbi.model.linear
 
 @Configuration
@@ -51,6 +53,8 @@ class MongoDashboardConfig {
                         datasource = mongo
                         name = "accidents"
                     }
+                }.filter {
+                    count ge 15
                 }
             }
         }

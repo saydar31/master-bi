@@ -152,8 +152,10 @@ object ElementBuilders {
         lateinit var name: String
         private val queries: MutableList<Query> = mutableListOf()
 
+        class ActivityGraphQuery(query: Query) : Query by query
+
         operator fun Query.unaryPlus() {
-            queries.add(this)
+            queries.add(ActivityGraphQuery(this))
         }
 
         fun build(): ActivityGraph {
