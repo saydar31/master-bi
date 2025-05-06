@@ -5,7 +5,7 @@ import LineChart from './LineChart';
 import DonutChart from './DonutChart';
 import { fetchDashboardConfig, executeQueries } from '../services/api';
 import TagCloudWiget from './TagCloudWiget';
-import ActivityGraph from './ActivityGraph';
+import ActivityGraphCard from './ActivityGraphCard';
 
 const Dashboard = ({ dashboardName }) => {
   const [config, setConfig] = useState(null);
@@ -72,7 +72,7 @@ const Dashboard = ({ dashboardName }) => {
                 />
               )}
               {col.type === 'ACTIVITY_GRAPH' && (
-                <ActivityGraph
+                <ActivityGraphCard
                 metadata={col}
                 data={queryResults}
                 />
